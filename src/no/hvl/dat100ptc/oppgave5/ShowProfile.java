@@ -45,12 +45,18 @@ public class ShowProfile extends EasyGraphics {
 	public void showHeightProfile(int ybase) {
 		
 		int x = MARGIN; // første høyde skal tegnes ved MARGIN
-		int y;
+		int y = ybase;
 		
-		// TODO 
-		throw new UnsupportedOperationException(TODO.method());
-		
+		setColor(0, 0, 255);
 
+		for (int i = 0; i < gpspoints.length; i++) {
+			if (gpspoints[i].getElevation() >= 0) {
+				y -= (int)gpspoints[i].getElevation();
+			}
+			drawLine(x, ybase, x, y);
+			x += 3;
+			y = ybase;
+		}
 	}
 
 }
