@@ -50,9 +50,9 @@ public class ShowRoute extends EasyGraphics {
 		
 		showRouteMap(MARGIN + MAPYSIZE);
 
-		replayRoute(MARGIN + MAPYSIZE);
+		// replayRoute(MARGIN + MAPYSIZE);
 		
-		showStatistics();
+		// showStatistics();
 	}
 
 	public double scale(int maxsize, double minval, double maxval) {
@@ -63,10 +63,27 @@ public class ShowRoute extends EasyGraphics {
 	}
 
 	public void showRouteMap(int ybase) {
+		setColor(0, 255, 0);
 
-		// TODO 
-		throw new UnsupportedOperationException(TODO.method());
-		
+		int x = 0;
+		int y = 0;
+
+		int[] lastPoint = null;
+
+		for (GPSPoint gpspoint : gpspoints) {
+			x = (int)(xstep * Math.abs(gpspoint.getLongitude()  - minlon));
+			y = (int)(ystep * Math.abs(gpspoint.getLatitude() - minlat));
+
+			if (lastPoint != null) {
+				drawLine(lastPoint[0], ybase - lastPoint[1], x, ybase - y);
+			}
+
+			lastPoint = new int[2];
+			lastPoint[0] = x;
+			lastPoint[1] = y;
+
+			fillCircle(x, ybase - y, 5);
+		}
 	}
 
 	public void showStatistics() {
